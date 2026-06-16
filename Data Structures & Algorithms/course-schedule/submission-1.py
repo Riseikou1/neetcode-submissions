@@ -1,0 +1,29 @@
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        temuujin = defaultdict(list)
+        visiting = set()
+        
+        for crs, pre in prerequisites :
+            temuujin[crs].append(pre)
+
+        def dfs(course) :
+            if course in visiting :
+                return False
+
+            if temuujin[course] == [] :
+                return True
+            
+            visiting.add(course)
+            for pre in temuujin[course] :
+                if not dfs(pre) :
+                    return False
+
+            visiting.remove(course)
+            temuujin[course] = []
+            return True
+
+        for c in range(numCourses) :
+            if not dfs(c) :
+                return False
+
+        return True

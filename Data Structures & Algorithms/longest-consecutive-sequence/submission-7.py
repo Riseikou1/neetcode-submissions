@@ -1,0 +1,13 @@
+class Solution:
+    def longestConsecutive(self, nums: List[int]) -> int:
+
+        temuujin = defaultdict(int)
+        result = 0
+
+        for num in nums :
+            if not temuujin[num]:
+                temuujin[num] = temuujin[num-1] + temuujin[num+1] + 1
+                result = max(result,temuujin[num])
+                temuujin[num-temuujin[num-1]] = temuujin[num]
+                temuujin[num+temuujin[num+1]] = temuujin[num]
+        return result
